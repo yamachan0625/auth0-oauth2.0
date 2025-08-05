@@ -23,6 +23,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  
+  const signupWithRedirect = () => {
+    // サインアップフローの開始を記録
+    localStorage.setItem('auth0_signup_flow', 'true');
+    loginWithRedirect({
+      authorizationParams: {
+        screen_hint: "signup",
+      },
+    });
+  };
   const toggle = () => setIsOpen(!isOpen);
 
   const logoutWithRedirect = () =>
@@ -65,16 +75,28 @@ const NavBar = () => {
             </Nav>
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
-                <NavItem>
-                  <Button
-                    id="qsLoginBtn"
-                    color="primary"
-                    className="btn-margin"
-                    onClick={() => loginWithRedirect()}
-                  >
-                    Log in
-                  </Button>
-                </NavItem>
+                <>
+                  <NavItem>
+                    <Button
+                      id="qsSignupBtn"
+                      color="success"
+                      className="btn-margin"
+                      onClick={() => signupWithRedirect()}
+                    >
+                      Sign up
+                    </Button>
+                  </NavItem>
+                  <NavItem>
+                    <Button
+                      id="qsLoginBtn"
+                      color="primary"
+                      className="btn-margin"
+                      onClick={() => loginWithRedirect()}
+                    >
+                      Log in
+                    </Button>
+                  </NavItem>
+                </>
               )}
               {isAuthenticated && (
                 <UncontrolledDropdown nav inNavbar>
@@ -109,6 +131,17 @@ const NavBar = () => {
             </Nav>
             {!isAuthenticated && (
               <Nav className="d-md-none" navbar>
+                <NavItem>
+                  <Button
+                    id="qsSignupBtn"
+                    color="success"
+                    block
+                    onClick={() => signupWithRedirect()}
+                    className="mb-2"
+                  >
+                    Sign up
+                  </Button>
+                </NavItem>
                 <NavItem>
                   <Button
                     id="qsLoginBtn"

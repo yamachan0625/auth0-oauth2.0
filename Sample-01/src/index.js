@@ -7,7 +7,22 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import history from "./utils/history";
 import { getConfig } from "./config";
 
-const onRedirectCallback = (appState) => {
+const onRedirectCallback = (appState, user) => {
+  // サインアップフローの検知
+  const isSignupFlow = localStorage.getItem('auth0_signup_flow') === 'true';
+  
+  if (isSignupFlow && user) {
+    // サインアップフラグをクリア
+    localStorage.removeItem('auth0_signup_flow');
+    
+    // サインアップ後はホームページに遷移し、サインアップ完了メッセージを表示
+    const url = new URL(window.location.origin);
+    url.searchParams.set('signup_complete', 'true');
+    window.location.href = url.toString();
+    return;
+  }
+  
+  // 通常のログインフローの処理
   history.push(
     appState && appState.returnTo ? appState.returnTo : window.location.pathname
   );
