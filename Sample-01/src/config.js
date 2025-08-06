@@ -16,5 +16,6 @@ export function getConfig() {
     domain: configJson.domain,
     clientId: configJson.clientId,
     ...(audience ? { audience } : null),
+    managementApiOrigin: configJson.managementApiOrigin || "http://localhost:3002",
   };
 }

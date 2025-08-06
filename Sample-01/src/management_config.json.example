@@ -1,0 +1,6 @@
+{
+  "domain": "{DOMAIN}",
+  "clientId": "{MANAGEMENT_CLIENT_ID}",
+  "clientSecret": "{MANAGEMENT_CLIENT_SECRET}",
+  "scope": "create:clients delete:clients read:clients update:clients"
+}

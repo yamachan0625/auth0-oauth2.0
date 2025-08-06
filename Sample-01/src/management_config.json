@@ -1,0 +1,6 @@
+{
+  "domain": "dev-hjemkt24m2gmy0ii.us.auth0.com",
+  "clientId": "kzWtfWUZVAbwxdS2y5qX5PdAd00qNGGk",
+  "clientSecret": "09a2OLfeXXt4T-gXfWchxw7JWZ4vlqSUHQT8PHpiJeDSaJfl0tmxjUT-x7voEqlx",
+  "scope": "create:clients delete:clients read:clients update:clients create:client_grants delete:client_grants read:client_grants update:client_grants"
+}

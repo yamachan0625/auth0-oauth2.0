@@ -9,6 +9,7 @@ import Home from "./views/Home";
 import Profile from "./views/Profile";
 import SignupComplete from "./views/SignupComplete";
 import ExternalApi from "./views/ExternalApi";
+import DeveloperPortal from "./views/DeveloperPortal";
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/profile" component={Profile} />
             <Route path="/signup-complete" component={SignupComplete} />
             <Route path="/external-api" component={ExternalApi} />
+            <Route path="/developer-portal" component={DeveloperPortal} />
           </Switch>
         </Container>
         <Footer />
