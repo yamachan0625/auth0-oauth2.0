@@ -14,8 +14,12 @@
     "api-server:dev": "nodemon api-server.js",
     "management-server": "node management-server.js",
     "management-server:dev": "nodemon management-server.js",
+    "oauth-client": "cd ../OAuth-Client-App && npm start",
+    "oauth-client:dev": "cd ../OAuth-Client-App && npm run dev",
     "dev": "npm-run-all --parallel spa api-server:dev management-server:dev",
-    "prod": "npm-run-all --parallel server api-server management-server"
+    "dev-full": "npm-run-all --parallel spa api-server:dev management-server:dev oauth-client:dev",
+    "prod": "npm-run-all --parallel server api-server management-server",
+    "prod-full": "npm-run-all --parallel server api-server management-server oauth-client"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.4.0",

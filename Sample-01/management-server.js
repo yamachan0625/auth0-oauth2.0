@@ -12,7 +12,16 @@ const app = express();
 
 const port = process.env.MANAGEMENT_PORT || 3002;
 const appPort = process.env.SERVER_PORT || 3000;
+const oauthClientPort = process.env.OAUTH_CLIENT_PORT || 3003;
 const appOrigin = authConfig.appOrigin || `http://localhost:${appPort}`;
+
+// CORS許可オリジンリスト
+const allowedOrigins = [
+  appOrigin,
+  `http://localhost:${oauthClientPort}`, // OAuth Client App
+  'http://localhost:3000', // React SPA
+  'http://localhost:3003', // OAuth Client App (固定)
+];
 
 // 設定チェック
 if (
@@ -29,7 +38,20 @@ if (
 // ミドルウェア設定
 app.use(morgan("dev"));
 app.use(helmet());
-app.use(cors({ origin: appOrigin }));
+app.use(cors({ 
+  origin: function (origin, callback) {
+    // リクエストにoriginがない場合（例：Postman、curl）は許可
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    const msg = 'CORS policy: このオリジンは許可されていません';
+    return callback(new Error(msg), false);
+  },
+  credentials: true // クッキーを含むリクエストを許可
+}));
 app.use(express.json());
 
 // Rate limiting
